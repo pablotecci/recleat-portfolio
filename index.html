@@ -287,6 +287,31 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
   /* ── Chart bars on dark ── */
   .bar-track { background: rgba(255,255,255,.1); }
 
+  /* ── Content Model ── */
+  .flow-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 12px 0 6px; }
+  .flow-obj {
+    background: rgba(255,255,255,.06);
+    border: 2px solid rgba(255,255,255,.12);
+    border-radius: 6px; padding: 10px 14px;
+    cursor: pointer; text-align: center; min-width: 90px;
+    transition: all .2s; color: rgba(255,255,255,.65);
+  }
+  .flow-obj .fo-icon { font-size: 18px; margin-bottom: 4px; }
+  .flow-obj .fo-label { font-size: 10px; font-family: var(--mono); letter-spacing: .5px; }
+  .flow-arrow { color: rgba(255,255,255,.3); font-size: 14px; padding: 0 4px; }
+  .attr-row {
+    display: grid; grid-template-columns: 1.5fr 1fr 2fr;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .attr-row:nth-child(odd)  { background: rgba(255,255,255,.04); }
+  .attr-row:nth-child(even) { background: rgba(255,255,255,.02); }
+  .ar-name   { font-size: 12px; font-weight: bold; color: #eee; }
+  .ar-values { font-size: 11px; color: #aaa; }
+  .attr-header { background: rgba(255,255,255,.07) !important; color: rgba(255,255,255,.5) !important; }
+  .obj-header { padding: 14px; color: #fff; }
+  .oh-title { font-size: 15px; font-weight: bold; }
+
   /* ═══════════════════════════════
      PITCH BANNER  component
      ═══════════════════════════════ */
@@ -1321,28 +1346,28 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
     <div style="display:flex;align-items:center">
       <button class="flow-obj" onclick="setObj(1)" style="">
         <div class="fo-icon">⚙️</div>
-        <div class="fo-label" style="color:#555">Product System</div>
+        <div class="fo-label" style="color:rgba(255,255,255,.6)">Product System</div>
       </button>
       <div class="flow-arrow">→</div>
     </div>
     <div style="display:flex;align-items:center">
       <button class="flow-obj" onclick="setObj(2)" style="">
         <div class="fo-icon">🔒</div>
-        <div class="fo-label" style="color:#555">Trust &amp; Safety</div>
+        <div class="fo-label" style="color:rgba(255,255,255,.6)">Trust &amp; Safety</div>
       </button>
       <div class="flow-arrow">→</div>
     </div>
     <div style="display:flex;align-items:center">
       <button class="flow-obj" onclick="setObj(3)" style="">
         <div class="fo-icon">🛒</div>
-        <div class="fo-label" style="color:#555">Purchase System</div>
+        <div class="fo-label" style="color:rgba(255,255,255,.6)">Purchase System</div>
       </button>
       <div class="flow-arrow">→</div>
     </div>
     <div style="display:flex;align-items:center">
       <button class="flow-obj" onclick="setObj(4)" style="">
         <div class="fo-icon">📋</div>
-        <div class="fo-label" style="color:#555">Post-Purchase</div>
+        <div class="fo-label" style="color:rgba(255,255,255,.6)">Post-Purchase</div>
       </button>
       
     </div></div>
@@ -1357,31 +1382,11 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
         <span>ATTRIBUTE</span><span>TYPE</span><span>VALUES</span>
       </div>
       
-    <div class="attr-row" style="background:#fff">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">Surface Type</div>
-      <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div>
-      <div class="ar-values" style="font-size:11px">Grass · Turf · Indoor · Multi</div>
-    </div>
-    <div class="attr-row" style="background:#fafaf8">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">Game Intensity</div>
-      <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div>
-      <div class="ar-values" style="font-size:11px">Casual · Competitive</div>
-    </div>
-    <div class="attr-row" style="background:#fff">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">Injury History</div>
-      <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div>
-      <div class="ar-values" style="font-size:11px">None · Prior · Active</div>
-    </div>
-    <div class="attr-row" style="background:#fafaf8">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">Surface Certainty</div>
-      <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">boolean</div>
-      <div class="ar-values" style="font-size:11px">Known · Unknown</div>
-    </div>
-    <div class="attr-row" style="background:#fff">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">Insole Preference</div>
-      <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">boolean</div>
-      <div class="ar-values" style="font-size:11px">Factory · Custom</div>
-    </div>
+    <div class="attr-row"><div class="ar-name">Surface Type</div><div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div><div class="ar-values">Grass · Turf · Indoor · Multi</div></div>
+    <div class="attr-row"><div class="ar-name">Game Intensity</div><div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div><div class="ar-values">Casual · Competitive</div></div>
+    <div class="attr-row"><div class="ar-name">Injury History</div><div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">enum</div><div class="ar-values">None · Prior · Active</div></div>
+    <div class="attr-row"><div class="ar-name">Surface Certainty</div><div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">boolean</div><div class="ar-values">Known · Unknown</div></div>
+    <div class="attr-row"><div class="ar-name">Insole Preference</div><div class="ar-type" style="font-size:10px;font-family:var(--mono);color:#E8323A">boolean</div><div class="ar-values">Factory · Custom</div></div>
     </div></div>
   </div>
 </div>
@@ -1848,7 +1853,7 @@ function renderFlowRow() {
       <button class="flow-obj${i===activeObj?' active':''}" onclick="setObj(${i})"
         style="${i===activeObj?`background:${o.color};border-color:${o.color};box-shadow:0 4px 16px ${o.color}33;`:''}">
         <div class="fo-icon">${o.icon}</div>
-        <div class="fo-label" style="color:${i===activeObj?'#fff':'#555'}">${o.label}</div>
+        <div class="fo-label" style="color:${i===activeObj?'#fff':'rgba(255,255,255,.6)'}">${o.label}</div>
       </button>
       ${i<objects.length-1?'<div class="flow-arrow">→</div>':''}
     </div>`).join('');
@@ -1857,10 +1862,10 @@ function renderFlowRow() {
 function renderObjDetail() {
   const o = objects[activeObj];
   const attrsHtml = o.attrs.map(([name,type,values,note],i) => `
-    <div class="attr-row" style="background:${i%2===0?'#fff':'#fafaf8'}">
-      <div class="ar-name" style="font-size:12px;font-weight:bold">${name}</div>
+    <div class="attr-row">
+      <div class="ar-name">${name}</div>
       <div class="ar-type" style="font-size:10px;font-family:var(--mono);color:${o.color}">${type}</div>
-      <div class="ar-values" style="font-size:11px">${values}</div>
+      <div class="ar-values">${values}</div>
     </div>`).join('');
   const detail = document.getElementById('obj-detail');
   if(detail) detail.innerHTML = `
