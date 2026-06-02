@@ -204,6 +204,186 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
 </style>
 
+<!-- ═══════════════════════════════════════════════════════
+     PITCH DARK THEME  ·  soccer field immersive redesign
+     ═══════════════════════════════════════════════════════ -->
+<style>
+  /* ── Global pitch atmosphere ── */
+  body {
+    background: #080e05;
+    background-image:
+      repeating-linear-gradient(90deg,
+        transparent, transparent 90px,
+        rgba(255,255,255,.013) 90px, rgba(255,255,255,.013) 180px);
+  }
+  .tab-bar { background: #04080300; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .brand-bar {
+    background: #040a02;
+    border-bottom: 2px solid var(--red);
+    color: rgba(255,255,255,.7);
+  }
+  .tab-btn { color: #445544; }
+  .tab-btn.active { color: #f0ece4; border-bottom-color: var(--red); }
+
+  /* ── All panels get the pitch ── */
+  .panel.active {
+    background: #090e06;
+    background-image:
+      repeating-linear-gradient(90deg,
+        transparent, transparent 90px,
+        rgba(255,255,255,.012) 90px, rgba(255,255,255,.012) 180px);
+    min-height: calc(100vh - 78px);
+  }
+
+  /* ── Typography on dark ── */
+  h1.page-title { color: #f0ece4; }
+  .page-sub { color: rgba(240,236,228,.45); }
+  .section-tag { color: #E8323A; }
+  h4 { color: #f0ece4; }
+
+  /* ── Cards ── */
+  .card {
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.09);
+    color: #c0bcb5;
+    box-shadow: 0 2px 18px rgba(0,0,0,.55);
+  }
+  .card strong { color: #f0ece4; }
+
+  /* ── Utility ── */
+  .label-sm { color: rgba(255,255,255,.38); }
+  .callout { background: rgba(232,50,58,.1); border-left-color: var(--red); }
+  .callout p { color: rgba(255,255,255,.82); }
+  .callout-label { color: var(--red) !important; }
+
+  /* ── Roadmap v-cards ── */
+  .v-card { background: rgba(255,255,255,.05); }
+  .v-card h4 { color: #f0ece4; }
+  .v-card li { color: #999; }
+
+  /* ── Econ table ── */
+  .econ-table td { border-bottom-color: rgba(255,255,255,.06); color: #bbb; }
+  .econ-table tr.highlight td { background: rgba(232,50,58,.09); color: #f0ece4 !important; }
+  .econ-val { color: #e0dcd5 !important; }
+
+  /* ── Affinity stickies keep their light pastels — nice contrast ── */
+  .sticky-grid { background: rgba(0,0,0,.25); }
+  .insight-bar { background: rgba(232,50,58,.07) !important; }
+  .insight-bar p { color: #bbb; }
+  .theme-tab { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: #778877; }
+  .theme-summary-item { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.07); }
+  .theme-summary-item .tsi-label { color: rgba(255,255,255,.42); }
+
+  /* ── MVC ── */
+  .mvc-col { border-color: rgba(255,255,255,.1); }
+  .mvc-item { border-bottom-color: rgba(255,255,255,.06); color: #aaa; }
+  .mvc-item strong { color: #eee; }
+
+  /* ── Scrum ── */
+  .sprint-card { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+  .sprint-body { color: #9a9a9a; }
+  .sprint-body strong { color: #ddd; }
+
+  /* ── Chart bars on dark ── */
+  .bar-track { background: rgba(255,255,255,.1); }
+
+  /* ═══════════════════════════════
+     PITCH BANNER  component
+     ═══════════════════════════════ */
+  .pitch-banner {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 26px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(140deg, #060d04 0%, #0e1e0a 55%, #050c03 100%);
+  }
+  /* Field stripe overlay */
+  .pitch-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,
+      transparent, transparent 55px,
+      rgba(255,255,255,.022) 55px, rgba(255,255,255,.022) 110px);
+    pointer-events: none;
+  }
+  /* White pitch line decorations */
+  .pitch-banner::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: -20px; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,.06);
+  }
+  .pitch-banner-inner {
+    position: relative; z-index: 1;
+    display: flex; align-items: stretch; min-height: 130px;
+  }
+  .pitch-banner-text {
+    flex: 1; padding: 22px 22px 22px 26px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .pitch-banner-text .pb-tag {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+    color: var(--red); text-transform: uppercase; margin-bottom: 9px;
+  }
+  .pitch-banner-text h1 {
+    font-size: clamp(17px, 2.8vw, 22px); font-weight: normal;
+    color: #f0ece4; line-height: 1.35; margin-bottom: 7px;
+  }
+  .pitch-banner-text p { font-size: 11px; color: rgba(255,255,255,.4); }
+  .pitch-banner-illus {
+    width: 170px; flex-shrink: 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 0 8px 0 4px; overflow: hidden;
+  }
+  /* Grass strip at banner bottom */
+  .pitch-grass {
+    height: 16px; width: 100%;
+    background: linear-gradient(to bottom, transparent 0%, #182e10 60%, #1e3a14 100%);
+    position: relative;
+  }
+  .pitch-grass::before {
+    content: '';
+    position: absolute; top: 4px; left: 0; right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(90deg,
+      #1a3812 0px, #1a3812 6px, #1f4015 6px, #1f4015 12px);
+    clip-path: polygon(
+      0% 100%, 0.8% 30%, 1.6% 100%, 2.4% 20%, 3.2% 100%, 4% 35%, 4.8% 100%,
+      5.6% 15%, 6.4% 100%, 7.2% 30%, 8% 100%, 8.8% 20%, 9.6% 100%, 10.4% 35%, 11.2% 100%,
+      12% 20%, 12.8% 100%, 13.6% 30%, 14.4% 100%, 15.2% 15%, 16% 100%, 16.8% 30%, 17.6% 100%,
+      18.4% 22%, 19.2% 100%, 20% 35%, 20.8% 100%, 21.6% 18%, 22.4% 100%, 23.2% 30%, 24% 100%,
+      24.8% 20%, 25.6% 100%, 26.4% 35%, 27.2% 100%, 28% 15%, 28.8% 100%, 29.6% 28%, 30.4% 100%,
+      31.2% 22%, 32% 100%, 32.8% 35%, 33.6% 100%, 34.4% 18%, 35.2% 100%, 36% 30%, 36.8% 100%,
+      37.6% 20%, 38.4% 100%, 39.2% 35%, 40% 100%, 40.8% 15%, 41.6% 100%, 42.4% 28%, 43.2% 100%,
+      44% 22%, 44.8% 100%, 45.6% 35%, 46.4% 100%, 47.2% 18%, 48% 100%, 48.8% 28%, 49.6% 100%,
+      50.4% 20%, 51.2% 100%, 52% 35%, 52.8% 100%, 53.6% 15%, 54.4% 100%, 55.2% 28%, 56% 100%,
+      56.8% 22%, 57.6% 100%, 58.4% 35%, 59.2% 100%, 60% 18%, 60.8% 100%, 61.6% 28%, 62.4% 100%,
+      63.2% 20%, 64% 100%, 64.8% 35%, 65.6% 100%, 66.4% 15%, 67.2% 100%, 68% 28%, 68.8% 100%,
+      69.6% 22%, 70.4% 100%, 71.2% 35%, 72% 100%, 72.8% 18%, 73.6% 100%, 74.4% 28%, 75.2% 100%,
+      76% 20%, 76.8% 100%, 77.6% 35%, 78.4% 100%, 79.2% 15%, 80% 100%, 80.8% 28%, 81.6% 100%,
+      82.4% 22%, 83.2% 100%, 84% 35%, 84.8% 100%, 85.6% 18%, 86.4% 100%, 87.2% 28%, 88% 100%,
+      88.8% 20%, 89.6% 100%, 90.4% 35%, 91.2% 100%, 92% 15%, 92.8% 100%, 93.6% 28%, 94.4% 100%,
+      95.2% 22%, 96% 100%, 96.8% 35%, 97.6% 100%, 98.4% 18%, 99.2% 100%, 100% 20%, 100% 100%
+    );
+  }
+
+  /* Corner arc decoration on banners */
+  .pb-corner {
+    position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    border-bottom-left-radius: 80px;
+    border: 1px solid rgba(255,255,255,.06);
+    border-top: none; border-right: none;
+  }
+  .pb-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.05);
+  }
+</style>
+
 <!-- NAV -->
 <div id="app-nav">
   <div class="brand-bar">
@@ -347,9 +527,38 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB 2 · AFFINITY MAP -->
 <div id="panel-affinity" class="panel">
   <div class="container">
-    <div class="section-tag">Synthesized Insights</div>
-    <h1 class="page-title">Players play through injury risk because no gear system makes the swap easy</h1>
-    <p class="page-sub">5 themes from interview + survey. Tap a theme to explore.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pb-circle" style="width:120px;height:120px;top:-40px;left:40%"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Synthesized Insights</span>
+          <h1>Players play through injury risk because no gear system makes the swap easy</h1>
+          <p>5 themes from interview + survey. Tap a theme to explore.</p>
+        </div>
+        <div class="pitch-banner-illus">
+          <!-- Soccer ball + clipboard -->
+          <svg viewBox="0 0 155 130" width="155" height="130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Clipboard -->
+            <rect x="12" y="22" width="68" height="90" rx="5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+            <rect x="36" y="15" width="20" height="12" rx="4" fill="rgba(255,255,255,.18)"/>
+            <line x1="22" y1="42" x2="70" y2="42" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+            <line x1="22" y1="53" x2="70" y2="53" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+            <line x1="22" y1="64" x2="58" y2="64" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+            <text x="46" y="93" text-anchor="middle" font-family="Impact,Arial Black" font-size="20" fill="#E8323A" font-weight="900">53%</text>
+            <text x="46" y="106" text-anchor="middle" font-family="Arial" font-size="8" fill="rgba(255,255,255,.4)">play anyway</text>
+            <!-- Soccer ball -->
+            <circle cx="112" cy="75" r="32" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+            <polygon points="112,46 121,53 118,63 106,63 103,53" fill="#1a1a1a"/>
+            <polygon points="129,65 136,74 131,83 121,82 118,71 124,63" fill="#1a1a1a"/>
+            <polygon points="124,87 117,99 105,99 98,88 103,78 116,78" fill="#1a1a1a"/>
+            <polygon points="97,81 89,90 81,83 83,71 93,67 101,73" fill="#1a1a1a"/>
+            <polygon points="100,55 102,64 93,71 84,65 85,54 93,49" fill="#1a1a1a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     <div class="theme-tabs" id="theme-tabs">
     <button class="theme-tab active" onclick="setTheme(0)" style="background:#E8323A;border-color:#E8323A;">⚡ Theme 1</button>
     <button class="theme-tab" onclick="setTheme(1)" style="">🛡️ Theme 2</button>
@@ -424,19 +633,61 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB: EVIDENCE -->
 <div id="panel-evidence" class="panel">
   <div class="container">
-    <div class="section-tag">Market Validation</div>
-    <h1 class="page-title">Field research confirms: surface mismatch is universal, not edge-case</h1>
-    <p class="page-sub">Survey data from 55 active soccer players.</p>
-    
-    <div class="stat-grid" id="evidence-stats-grid">
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">73%</div><div class="label-sm" style="margin:0">prioritize injury</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">53%</div><div class="label-sm" style="margin:0">play anyway</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">56%</div><div class="label-sm" style="margin:0">cite slip/injury</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">40%</div><div class="label-sm" style="margin:0">own 3+ pairs</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">71%</div><div class="label-sm" style="margin:0">owned specifics</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">55%</div><div class="label-sm" style="margin:0">play multi/week</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">2.6</div><div class="label-sm" style="margin:0">mean frustration</div></div>
-      <div class="card" style="text-align:center"><div style="font-size:24px; color:var(--red); font-family:var(--mono)">27%</div><div class="label-sm" style="margin:0">score ≥4 frustration</div></div>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pb-circle" style="width:100px;height:100px;bottom:-30px;left:38%"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Market Validation · N=55</span>
+          <h1>Field research confirms: surface mismatch is universal, not edge-case</h1>
+          <p>Survey data from 55 active soccer players across recreational and competitive levels.</p>
+        </div>
+        <div class="pitch-banner-illus">
+          <!-- Player slipping in wrong cleats + warning -->
+          <svg viewBox="0 0 145 130" width="145" height="130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Grass -->
+            <rect x="0" y="108" width="145" height="22" fill="#162e0e"/>
+            <!-- Ground cracks (wrong surface) -->
+            <path d="M52,108 L44,120 M65,108 L72,119 M58,108 L56,122" stroke="rgba(232,50,58,.75)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Shadow -->
+            <ellipse cx="72" cy="108" rx="22" ry="4" fill="rgba(0,0,0,.38)"/>
+            <!-- Back leg -->
+            <path d="M66,72 L54,105" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- Back cleat -->
+            <path d="M49,103 L60,108 L53,113 Z" fill="#E8323A"/>
+            <!-- Front leg (slipping) -->
+            <path d="M78,72 L97,94" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- Front cleat -->
+            <path d="M93,92 L104,97 L97,102 Z" fill="#E8323A"/>
+            <!-- Shorts -->
+            <path d="M55,59 Q72,74 87,59 L85,70 Q72,85 57,70 Z" fill="white" opacity=".92"/>
+            <!-- Jersey (red) -->
+            <path d="M53,25 L91,25 L87,62 L57,62 Z" fill="#E8323A"/>
+            <!-- Centre stripe -->
+            <path d="M68,25 L76,25 L74,62 L70,62 Z" fill="rgba(255,255,255,.2)"/>
+            <!-- Left arm (off balance) -->
+            <path d="M55,30 L38,48" stroke="#E8323A" stroke-width="7" stroke-linecap="round"/>
+            <!-- Right arm (raised) -->
+            <path d="M89,30 L104,40" stroke="#E8323A" stroke-width="7" stroke-linecap="round"/>
+            <!-- Neck -->
+            <rect x="67" y="14" width="10" height="12" rx="5" fill="#c8906a"/>
+            <!-- Head -->
+            <ellipse cx="72" cy="8" rx="12" ry="13" fill="#c8906a"/>
+            <!-- Hair -->
+            <path d="M61,6 Q72,-3 83,6 L82,2 Q72,-7 62,2 Z" fill="#1a0c04"/>
+            <!-- Worried brows -->
+            <path d="M67,5 Q70,2 73,4" stroke="#1a0c04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M75,4 Q78,2 81,5" stroke="#1a0c04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <!-- Open mouth -->
+            <ellipse cx="72" cy="11" rx="3.5" ry="2.5" fill="#1a0c04"/>
+            <!-- Warning triangle -->
+            <path d="M112,22 L126,46 L98,46 Z" fill="#E8323A"/>
+            <rect x="111" y="29" width="3" height="9" rx="1.5" fill="white"/>
+            <circle cx="112.5" cy="41" r="1.8" fill="white"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
     </div>
 
     <style>
@@ -555,26 +806,6 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
       </div>
     </div>
 
-    <div class="section-tag">Voice of the User</div>
-    <div class="interview-grid">
-      <div class="card interview-card" style="border-left-color:var(--red)">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px"><strong>Mikey, 38</strong><span style="font-family:var(--mono); font-size:10px">HID · ~$308K</span></div>
-        <div style="font-size:12px; line-height:1.4">Plantar fascia tear, Nike Cyclone stud broke both pairs</div>
-      </div>
-      <div class="card interview-card" style="border-left-color:var(--blue)">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px"><strong>Dera, 29</strong><span style="font-family:var(--mono); font-size:10px">Data Scientist · ~$200K</span></div>
-        <div style="font-size:12px; line-height:1.4">Pelvic stress fracture, ~$2K MRI costs</div>
-      </div>
-      <div class="card interview-card" style="border-left-color:var(--green)">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px"><strong>Bolu, 28</strong><span style="font-family:var(--mono); font-size:10px">Defender</span></div>
-        <div style="font-size:12px; line-height:1.4">Stud through worn boot, Nike toe tears</div>
-      </div>
-      <div class="card interview-card" style="border-left-color:var(--gold)">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px"><strong>David E., 27</strong><span style="font-family:var(--mono); font-size:10px">Resident · $70K</span></div>
-        <div style="font-size:12px; line-height:1.4">Nike Tiempo sole detached 90% mid-game</div>
-      </div>
-    </div>
-
     <div class="section-tag">Three Independent Sources. One Conclusion.</div>
     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:0">
       <div style="background:#1A6BCC; border-radius:6px; padding:16px; color:#fff">
@@ -611,20 +842,60 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB: JOURNEY -->
 <div id="panel-journey" class="panel">
   <div class="container">
-    <div class="section-tag">Service Blueprint</div>
-    <h1 class="page-title">Players hit a wall at the gear-swap moment — that's where ReCleat wins or loses</h1>
-    <p class="page-sub">Closing the loop across the full lifecycle.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Service Blueprint · 8 Touchpoints</span>
+          <h1>Players hit a wall at the gear-swap moment — that's where ReCleat wins or loses</h1>
+          <p>Current market exits after purchase. ReCleat closes every gap.</p>
+        </div>
+        <div class="pitch-banner-illus">
+          <!-- Goalpost with ball in net -->
+          <svg viewBox="0 0 170 130" width="170" height="130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Grass -->
+            <rect x="0" y="112" width="170" height="18" fill="#162e0e"/>
+            <!-- Net lines (subtle) -->
+            <g stroke="rgba(255,255,255,.1)" stroke-width=".8" fill="none">
+              <line x1="22" y1="50" x2="148" y2="50"/>
+              <line x1="22" y1="65" x2="148" y2="65"/>
+              <line x1="22" y1="80" x2="148" y2="80"/>
+              <line x1="22" y1="95" x2="148" y2="95"/>
+              <line x1="22" y1="110" x2="148" y2="110"/>
+              <line x1="48" y1="38" x2="48" y2="112"/>
+              <line x1="74" y1="38" x2="74" y2="112"/>
+              <line x1="100" y1="38" x2="100" y2="112"/>
+              <line x1="126" y1="38" x2="126" y2="112"/>
+            </g>
+            <!-- Left post -->
+            <rect x="18" y="10" width="7" height="102" rx="3.5" fill="white"/>
+            <!-- Right post -->
+            <rect x="145" y="10" width="7" height="102" rx="3.5" fill="white"/>
+            <!-- Crossbar -->
+            <rect x="18" y="10" width="134" height="7" rx="3.5" fill="white"/>
+            <!-- Soccer ball in net -->
+            <circle cx="85" cy="78" r="14" fill="white" stroke="#222" stroke-width="1.2"/>
+            <polygon points="85,65 91,70 89,77 81,77 79,70" fill="#1a1a1a"/>
+            <polygon points="97,72 101,78 98,85 91,84 89,77 94,71" fill="#1a1a1a"/>
+            <polygon points="94,88 89,96 80,96 75,88 79,81 88,81" fill="#1a1a1a"/>
+            <polygon points="75,83 70,90 63,84 65,76 73,73 79,79" fill="#1a1a1a"/>
+            <polygon points="78,68 80,76 73,82 65,77 66,68 73,63" fill="#1a1a1a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     <!-- Legend -->
     <div style="display:flex; gap:16px; font-size:11px; margin-bottom:10px; align-items:center">
       <div style="display:flex; align-items:center; gap:6px">
-        <span style="width:14px; height:10px; background:#ffeaea; border-bottom:2px solid #E8323A; display:inline-block"></span>
-        <span style="color:#555">Current Gap</span>
+        <span style="width:14px; height:10px; background:rgba(232,50,58,.25); border-bottom:2px solid #E8323A; display:inline-block"></span>
+        <span style="color:rgba(255,255,255,.5)">Current Gap</span>
       </div>
       <div style="display:flex; align-items:center; gap:6px">
-        <span style="width:14px; height:10px; background:#e8f0ff; border-bottom:2px solid #1A6BCC; display:inline-block"></span>
-        <span style="color:#555">ReCleat Response</span>
+        <span style="width:14px; height:10px; background:rgba(26,107,204,.25); border-bottom:2px solid #1A6BCC; display:inline-block"></span>
+        <span style="color:rgba(255,255,255,.5)">ReCleat Response</span>
       </div>
-      <span style="color:#aaa; margin-left:auto; font-size:10px">← scroll →</span>
+      <span style="color:rgba(255,255,255,.3); margin-left:auto; font-size:10px">← scroll →</span>
     </div>
 
     <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:16px">
@@ -632,56 +903,53 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">01 · AWARENESS</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">No modular category; brand-driven discovery</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Injury-recovery forums; sports medicine content</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">No modular category; brand-driven discovery</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Injury-recovery forums; sports medicine content</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">02 · CHOOSE</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">No proof-of-durability; brand trust eroded</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Engineering data, stress tests, biomechanical claims</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">No proof-of-durability; brand trust eroded</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Engineering data, stress tests, biomechanical claims</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">03 · ACQUIRE</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">Forced multi-SKU buying; emergency purchases</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Bundle pricing: Starter $238 / Multi $287 vs ~$380</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">Forced multi-SKU buying; emergency purchases</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Bundle pricing: Starter $238 / Multi $287 vs ~$380</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">04 · INSTALL</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">No confirmation gear is secure</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Visual + tactile lock confirmation (green + click)</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">No confirmation gear is secure</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Visual + tactile lock confirmation (green + click)</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">05 · USE</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">Brings 2 pairs; plays wrong gear 53% of time</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">&lt;10-second sideline swap; zero decision needed</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">Brings 2 pairs; plays wrong gear 53% of time</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">&lt;10-second sideline swap; zero decision needed</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">06 · PAY</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">$400+/year replacing full pairs</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">$49 outsole add-on vs $190 full replacement</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">$400+/year replacing full pairs</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">$49 outsole add-on vs $190 full replacement</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">07 · SUPPORT</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">No post-purchase guidance; factory insoles insufficient</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Switch guide; maintenance tips; insole compatibility</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">No post-purchase guidance; factory insoles insufficient</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Switch guide; maintenance tips; insole compatibility</div>
         </div>
 
         <div style="border-radius:6px; overflow:hidden; border:1px solid #e0e0e0; box-shadow:0 1px 4px rgba(0,0,0,.06)">
           <div style="background:#111; color:#fff; padding:8px 6px; text-align:center; font-size:10px; font-weight:bold; letter-spacing:.06em">08 · EVOLVE</div>
-          <div style="background:#ffeaea; padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#333">No upgrade path; entire shoe discarded</div>
-          <div style="background:#e8f0ff; padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#1A3A6B; border-bottom:2px solid #1A6BCC">Wear tracker → reorder CTA at 80hr threshold</div>
+          <div style="background:rgba(232,50,58,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; border-bottom:2px solid #E8323A; color:#f0b0b3">No upgrade path; entire shoe discarded</div>
+          <div style="background:rgba(26,107,204,.18); padding:10px; font-size:11px; line-height:1.45; min-height:72px; color:#a8c4f0; border-bottom:2px solid #1A6BCC">Wear tracker → reorder CTA at 80hr threshold</div>
         </div>
 
       </div>
-    </div>
-    <div style="background:#111; border-radius:6px; padding:14px 18px; color:#fff; text-align:center; border-bottom:4px solid var(--blue)">
-      <p style="margin:0; font-size:13px">Current market abandons customer after purchase. <strong>ReCleat closes all 8 touchpoints.</strong></p>
     </div>
   </div>
 </div>
@@ -689,8 +957,52 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB: UNIT ECONOMICS -->
 <div id="panel-economics" class="panel">
   <div class="container">
-    <h1 class="page-title">A 12:1 LTV:CAC ratio makes ReCleat one of the strongest economics in performance footwear</h1>
-    <p class="page-sub">Pricing architecture and platform model.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pb-circle" style="width:90px;height:90px;top:-25px;left:44%"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Unit Economics · Platform Model</span>
+          <h1>A 12:1 LTV:CAC ratio makes ReCleat one of the strongest economics in performance footwear</h1>
+          <p>$287 bundle · 55% gross margin · ~$630 3-year LTV</p>
+        </div>
+        <div class="pitch-banner-illus">
+          <!-- Modular cleat boot side view -->
+          <svg viewBox="0 0 155 130" width="155" height="130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Grass -->
+            <rect x="0" y="108" width="155" height="22" fill="#162e0e"/>
+            <!-- Boot upper -->
+            <path d="M22,50 L118,44 L124,68 L28,78 Q17,78 15,70 Q13,60 22,50 Z" fill="white"/>
+            <!-- Toe cap -->
+            <path d="M114,44 L130,55 L124,68 Z" fill="#ddd"/>
+            <!-- Heel counter (red) -->
+            <path d="M22,50 L15,61 L15,78 L28,78 Z" fill="#E8323A"/>
+            <!-- Lace lines -->
+            <line x1="56" y1="46" x2="52" y2="76" stroke="#bbb" stroke-width="1.2"/>
+            <line x1="72" y1="45" x2="69" y2="76" stroke="#bbb" stroke-width="1.2"/>
+            <line x1="88" y1="44" x2="86" y2="74" stroke="#bbb" stroke-width="1.2"/>
+            <line x1="52" y1="52" x2="88" y2="50" stroke="#bbb" stroke-width="1.2"/>
+            <line x1="51" y1="61" x2="87" y2="59" stroke="#bbb" stroke-width="1.2"/>
+            <line x1="50" y1="70" x2="86" y2="68" stroke="#bbb" stroke-width="1.2"/>
+            <!-- Outsole (blue — modular snap) -->
+            <path d="M15,78 L124,68 L128,79 L22,90 Z" fill="#1A6BCC"/>
+            <!-- Studs -->
+            <ellipse cx="36" cy="90" rx="6" ry="4" fill="#0d50a0"/>
+            <ellipse cx="58" cy="88" rx="6" ry="4" fill="#0d50a0"/>
+            <ellipse cx="82" cy="86" rx="6" ry="4" fill="#0d50a0"/>
+            <ellipse cx="106" cy="83" rx="6" ry="4" fill="#0d50a0"/>
+            <!-- Lock indicator on outsole -->
+            <circle cx="70" cy="74" r="6" fill="#E8323A" stroke="white" stroke-width="1.5"/>
+            <text x="70" y="77.5" text-anchor="middle" font-family="Arial" font-size="8" fill="white" font-weight="bold">✓</text>
+            <!-- Price tag -->
+            <rect x="116" y="34" width="36" height="20" rx="3" fill="#0d1208" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+            <line x1="122" y1="34" x2="119" y2="26" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+            <text x="134" y="48" text-anchor="middle" font-family="Impact,Arial Black" font-size="10" fill="#E8323A">$287</text>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     
     <div class="stat-grid">
       <div class="card" style="text-align:center; border-bottom:3px solid var(--blue)"><div class="label-sm">Multi Bundle ASP</div><div style="font-size:24px; font-family:var(--mono); color:var(--blue)">$287</div></div>
@@ -741,8 +1053,37 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB: MVC -->
 <div id="panel-mvc" class="panel">
   <div class="container">
-    <h1 class="page-title">A modular data model makes surface-swapping seamless across every platform</h1>
-    <p class="page-sub">Application functional breakdown.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Technical Architecture · React PWA</span>
+          <h1>A modular data model makes surface-swapping seamless across every platform</h1>
+          <p>Model → View → Controller — the engine behind the 10-second swap.</p>
+        </div>
+        <div class="pitch-banner-illus" style="align-items:center; justify-content:flex-end; padding-right:24px">
+          <svg viewBox="0 0 120 100" width="120" height="100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Three MVC pillars as columns -->
+            <rect x="8" y="30" width="28" height="60" rx="3" fill="#1A6BCC" opacity=".9"/>
+            <text x="22" y="65" text-anchor="middle" font-family="Impact" font-size="9" fill="white">M</text>
+            <rect x="46" y="18" width="28" height="72" rx="3" fill="#3a7a3a" opacity=".9"/>
+            <text x="60" y="58" text-anchor="middle" font-family="Impact" font-size="9" fill="white">V</text>
+            <rect x="84" y="42" width="28" height="48" rx="3" fill="#cc8800" opacity=".9"/>
+            <text x="98" y="70" text-anchor="middle" font-family="Impact" font-size="9" fill="white">C</text>
+            <!-- Arrows between -->
+            <path d="M36,55 L46,55" stroke="rgba(255,255,255,.4)" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+            <path d="M74,54 L84,54" stroke="rgba(255,255,255,.4)" stroke-width="1.5" fill="none"/>
+            <polygon points="82,51 87,54 82,57" fill="rgba(255,255,255,.4)"/>
+            <polygon points="44,52 49,55 44,58" fill="rgba(255,255,255,.4)"/>
+            <!-- Labels -->
+            <text x="22" y="26" text-anchor="middle" font-family="Arial" font-size="7" fill="rgba(255,255,255,.5)">MODEL</text>
+            <text x="60" y="14" text-anchor="middle" font-family="Arial" font-size="7" fill="rgba(255,255,255,.5)">VIEW</text>
+            <text x="98" y="38" text-anchor="middle" font-family="Arial" font-size="7" fill="rgba(255,255,255,.5)">CTRL</text>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     
     <div class="callout" style="border-left-color:var(--dark); margin-bottom:24px">
       <div class="callout-label" style="color:var(--dark)">Platform Decision</div>
@@ -786,8 +1127,60 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB: SCRUM -->
 <div id="panel-scrum" class="panel">
   <div class="container">
-    <h1 class="page-title">Three sprints separate concept from a shippable MVP</h1>
-    <p class="page-sub">6 two-week sprints · 186 total story points · 4 kill criteria gates at Sprint 3</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pb-circle" style="width:80px;height:80px;bottom:-20px;left:42%"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Agile Roadmap · 6 Sprints · 186 Points</span>
+          <h1>Three sprints separate concept from a shippable MVP</h1>
+          <p>4 kill-criteria gates at Sprint 3 · 2-week cadence throughout.</p>
+        </div>
+        <div class="pitch-banner-illus">
+          <!-- Sprinting player -->
+          <svg viewBox="0 0 145 130" width="145" height="130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Speed lines -->
+            <line x1="2" y1="62" x2="32" y2="62" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+            <line x1="6" y1="72" x2="28" y2="72" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+            <line x1="8" y1="52" x2="26" y2="52" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+            <!-- Grass -->
+            <rect x="0" y="108" width="145" height="22" fill="#162e0e"/>
+            <!-- Shadow -->
+            <ellipse cx="80" cy="108" rx="26" ry="5" fill="rgba(0,0,0,.35)"/>
+            <!-- Back leg (push-off) -->
+            <path d="M70,76 L54,106" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- Back cleat -->
+            <path d="M49,104 L60,109 L53,114 Z" fill="#E8323A"/>
+            <!-- Front leg (forward stride) -->
+            <path d="M84,76 L100,96" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- Front cleat (raised) -->
+            <path d="M96,94 L107,90 L109,97 Z" fill="#E8323A"/>
+            <!-- Shorts -->
+            <path d="M58,63 Q77,77 92,63 L90,74 Q77,88 60,74 Z" fill="white" opacity=".9"/>
+            <!-- Jersey -->
+            <path d="M54,26 L100,26 L95,66 L59,66 Z" fill="#E8323A"/>
+            <path d="M72,26 L82,26 L80,66 L74,66 Z" fill="rgba(255,255,255,.2)"/>
+            <!-- Sprint number on back -->
+            <text x="77" y="52" text-anchor="middle" font-family="Impact" font-size="16" fill="rgba(255,255,255,.35)">S3</text>
+            <!-- Arms (pumping hard) -->
+            <path d="M57,32 L38,52" stroke="#E8323A" stroke-width="7" stroke-linecap="round"/>
+            <path d="M97,32 L116,46" stroke="#E8323A" stroke-width="7" stroke-linecap="round"/>
+            <!-- Neck -->
+            <rect x="71" y="15" width="10" height="12" rx="5" fill="#c8906a"/>
+            <!-- Head (leaning forward) -->
+            <ellipse cx="78" cy="9" rx="12" ry="13" fill="#c8906a"/>
+            <!-- Hair -->
+            <path d="M67,7 Q78,-2 89,7 L88,3 Q78,-6 68,3 Z" fill="#1a0c04"/>
+            <!-- Determined eyes -->
+            <circle cx="74" cy="7" r="2.2" fill="#1a0c04"/>
+            <circle cx="82" cy="7" r="2.2" fill="#1a0c04"/>
+            <!-- Set mouth -->
+            <path d="M74,13 L82,13" stroke="#1a0c04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     
     <div style="display:flex; gap:10px; margin-bottom:20px">
       <span class="badge" style="background:var(--red)">KILL</span>
@@ -882,9 +1275,38 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB 3 · CONTENT MODEL -->
 <div id="panel-content" class="panel">
   <div class="container">
-    <div class="section-tag">Information Architecture</div>
-    <h1 class="page-title">One schema powers catalog, profiles, and wear tracking without duplication</h1>
-    <p class="page-sub">5 objects, attributes, and relationships. Tap any object to drill in.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Information Architecture · 5 Objects</span>
+          <h1>One schema powers catalog, profiles, and wear tracking without duplication</h1>
+          <p>Tap any object to drill into attributes and relationships.</p>
+        </div>
+        <div class="pitch-banner-illus" style="align-items:center; padding-right:20px">
+          <svg viewBox="0 0 120 90" width="120" height="90" xmlns="http://www.w3.org/2000/svg">
+            <!-- Central node -->
+            <circle cx="60" cy="45" r="14" fill="#E8323A" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+            <text x="60" y="49" text-anchor="middle" font-family="Arial" font-size="7.5" fill="white" font-weight="bold">Schema</text>
+            <!-- Spoke nodes -->
+            <circle cx="22" cy="22" r="10" fill="rgba(26,107,204,.7)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <text x="22" y="26" text-anchor="middle" font-family="Arial" font-size="6" fill="white">User</text>
+            <circle cx="98" cy="22" r="10" fill="rgba(26,107,204,.7)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <text x="98" y="26" text-anchor="middle" font-family="Arial" font-size="6" fill="white">Product</text>
+            <circle cx="12" cy="68" r="10" fill="rgba(58,122,58,.7)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <text x="12" y="72" text-anchor="middle" font-family="Arial" font-size="6" fill="white">Wear</text>
+            <circle cx="108" cy="68" r="10" fill="rgba(58,122,58,.7)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <text x="108" y="72" text-anchor="middle" font-family="Arial" font-size="6" fill="white">Order</text>
+            <!-- Spokes -->
+            <line x1="49" y1="36" x2="30" y2="28" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+            <line x1="71" y1="36" x2="90" y2="28" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+            <line x1="49" y1="54" x2="21" y2="60" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+            <line x1="71" y1="54" x2="100" y2="60" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     <div class="flow-diagram">
       <div class="label-sm">Object Flow</div>
       <div class="flow-row" id="flow-row">
@@ -966,7 +1388,37 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB 4 · WIREFRAMES -->
 <div id="panel-wireframe" class="panel">
   <div class="container" style="display:flex; flex-direction:column; align-items:center">
-    <h1 class="page-title" style="align-self: flex-start">Six screens take a player from surface problem to locked-in configuration</h1>
+    <div class="pitch-banner" style="align-self:stretch">
+      <div class="pb-corner"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Digital MVP · React PWA</span>
+          <h1>Six screens take a player from surface problem to locked-in configuration</h1>
+          <p>Tap any screen to navigate the full flow.</p>
+        </div>
+        <div class="pitch-banner-illus" style="align-items:center; padding-right:20px">
+          <svg viewBox="0 0 80 100" width="80" height="100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Phone outline -->
+            <rect x="10" y="5" width="60" height="90" rx="8" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+            <!-- Screen area -->
+            <rect x="14" y="14" width="52" height="68" rx="3" fill="#0d0d0d"/>
+            <!-- App content lines -->
+            <rect x="18" y="20" width="20" height="3" rx="1.5" fill="#E8323A" opacity=".8"/>
+            <rect x="18" y="27" width="36" height="2" rx="1" fill="rgba(255,255,255,.25)"/>
+            <rect x="18" y="32" width="28" height="2" rx="1" fill="rgba(255,255,255,.15)"/>
+            <!-- Surface select boxes -->
+            <rect x="18" y="40" width="20" height="12" rx="2" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="42" y="40" width="20" height="12" rx="2" fill="rgba(26,107,204,.3)" stroke="#1A6BCC" stroke-width="1"/>
+            <!-- CTA button -->
+            <rect x="18" y="60" width="44" height="10" rx="3" fill="#E8323A"/>
+            <text x="40" y="67.5" text-anchor="middle" font-family="Arial" font-size="6" fill="white">Lock In →</text>
+            <!-- Home indicator -->
+            <rect x="30" y="88" width="20" height="2.5" rx="1.25" fill="rgba(255,255,255,.3)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     <div class="wf-meta">
       <div class="wf-meta-row">
         <span class="wm-section">MVP SCREEN FLOW</span>
@@ -993,8 +1445,32 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <!-- TAB 5 · MOOD BOARD -->
 <div id="panel-mood" class="panel active">
   <div class="container">
-    <h1 class="page-title">The visual language signals precision and grit — the same qualities players demand</h1>
-    <p class="page-sub">Visual and emotional language — from user reality to design direction.</p>
+    <div class="pitch-banner">
+      <div class="pb-corner"></div>
+      <div class="pb-circle" style="width:100px;height:100px;top:-30px;right:200px"></div>
+      <div class="pitch-banner-inner">
+        <div class="pitch-banner-text">
+          <span class="pb-tag">Design Direction · Visual Language</span>
+          <h1>The visual language signals precision and grit — the same qualities players demand</h1>
+          <p>From user reality to design direction.</p>
+        </div>
+        <div class="pitch-banner-illus" style="align-items:center; padding-right:20px">
+          <svg viewBox="0 0 110 90" width="110" height="90" xmlns="http://www.w3.org/2000/svg">
+            <!-- Colour palette swatches -->
+            <rect x="8" y="20" width="18" height="50" rx="3" fill="#E8323A"/>
+            <rect x="30" y="28" width="18" height="42" rx="3" fill="#1a1a1a"/>
+            <rect x="52" y="35" width="18" height="35" rx="3" fill="#f0ece4"/>
+            <rect x="74" y="42" width="18" height="28" rx="3" fill="#1A6BCC"/>
+            <!-- Labels -->
+            <text x="17" y="78" text-anchor="middle" font-family="Arial" font-size="6" fill="rgba(255,255,255,.5)">Red</text>
+            <text x="39" y="78" text-anchor="middle" font-family="Arial" font-size="6" fill="rgba(255,255,255,.5)">Black</text>
+            <text x="61" y="78" text-anchor="middle" font-family="Arial" font-size="6" fill="rgba(255,255,255,.5)">Off-W</text>
+            <text x="83" y="78" text-anchor="middle" font-family="Arial" font-size="6" fill="rgba(255,255,255,.5)">Blue</text>
+          </svg>
+        </div>
+      </div>
+      <div class="pitch-grass"></div>
+    </div>
     <div class="mood-toggle" id="mood-toggle">
       <button class="mood-toggle-btn active" onclick="showMood('problem',this)" style="background: rgb(232, 50, 58); color: rgb(255, 255, 255);">Problem: User Reality</button>
       <button class="mood-toggle-btn" onclick="showMood('solution',this)" style="background: rgb(255, 255, 255); color: rgb(102, 102, 102);">Solution: Design Direction</button>
