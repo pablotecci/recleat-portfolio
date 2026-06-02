@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReCleat · The Story</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --pitch: #0a1a0f; --turf: #1a3a20; --lime: #c8f135;
+    --chalk: #f5f0e8; --clay: #d4a96a; --danger: #e84c3d;
+    --muted: #7a8a7d; --card: #111f14;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--pitch); color: var(--chalk); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+  #progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--lime); width: 0%; z-index: 999; transition: width 0.1s linear; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: linear-gradient(to bottom, rgba(10,26,15,0.95), transparent); }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: var(--lime); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--chalk); }
+
+  section { min-height: 100vh; position: relative; }
+
+  #hero { display: grid; place-items: center; background: radial-gradient(ellipse at 30% 60%, #1a3a20 0%, var(--pitch) 65%); padding: 120px 48px 80px; text-align: center; overflow: hidden; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.25em; color: var(--lime); text-transform: uppercase; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+  .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(52px, 8vw, 96px); font-weight: 900; line-height: 1.0; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.4s; }
+  .hero-headline em { font-style: italic; color: var(--lime); display: block; }
+  .hero-body { max-width: 540px; font-size: 18px; color: #b5c4b8; margin: 0 auto 48px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.6s; }
+  .scroll-cue { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; opacity: 0; animation: fadeUp 0.9s ease forwards 0.9s; }
+  .scroll-arrow { display: block; margin: 12px auto 0; width: 20px; height: 20px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); animation: bounce 1.8s ease-in-out infinite 1.5s; }
+  .pitch-lines { position: absolute; inset: 0; pointer-events: none; opacity: 0.06; background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, #fff 79px, #fff 80px); }
+
+  #act1 { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; padding: 120px 80px; background: var(--pitch); }
+  .act-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--lime); text-transform: uppercase; margin-bottom: 16px; }
+  .act-headline { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 700; line-height: 1.15; margin-bottom: 28px; }
+  .act-body { font-size: 17px; color: #b5c4b8; max-width: 480px; }
+  .act-body p + p { margin-top: 20px; }
+
+  .persona-card { background: var(--card); border: 1px solid #2a3f2d; border-radius: 4px; padding: 40px; position: relative; overflow: hidden; }
+  .persona-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--lime); }
+  .persona-name { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; margin-bottom: 4px; }
+  .persona-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 32px; }
+  .persona-quote { font-size: 16px; font-style: italic; color: var(--chalk); line-height: 1.6; border-left: 3px solid var(--lime); padding-left: 20px; margin-bottom: 32px; }
+  .persona-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--lime); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+  #act2 { padding: 120px 80px; background: #070f09; }
+  #act2 .inner, #act4 .inner { max-width: 960px; margin: 0 auto; }
+  .section-header { margin-bottom: 80px; }
+  .pull-stat { font-family: 'Playfair Display', serif; font-size: clamp(64px, 10vw, 120px); font-weight: 900; color: var(--lime); line-height: 0.9; margin-bottom: 20px; }
+  .pull-context { font-size: 20px; max-width: 600px; color: #b5c4b8; }
+  .evidence-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 60px 0; }
+  .evidence-cell { background: var(--card); padding: 36px 32px; border-top: 2px solid transparent; transition: border-color 0.3s, transform 0.3s; }
+  .evidence-cell:hover { border-color: var(--lime); transform: translateY(-4px); }
+  .evidence-cell.danger { border-top: 2px solid var(--danger); }
+  .ev-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--chalk); line-height: 1; }
+  .ev-num.red { color: var(--danger); }
+  .ev-desc { font-size: 14px; color: var(--muted); margin-top: 12px; line-height: 1.6; }
+  .author-break { max-width: 640px; margin: 80px auto; padding: 48px; background: var(--card); border-left: 3px solid var(--lime); font-size: 16px; color: #b5c4b8; line-height: 1.8; font-style: italic; }
+  .author-break strong { color: var(--chalk); font-style: normal; }
+
+  #act3 { padding: 120px 80px; background: var(--pitch); display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 80px; }
+  .timeline-item { display: grid; grid-template-columns: 48px 1fr; gap: 20px; margin-bottom: 48px; position: relative; }
+  .timeline-item::after { content: ''; position: absolute; left: 23px; top: 48px; bottom: -48px; width: 1px; background: #2a3f2d; }
+  .timeline-item:last-child::after { display: none; }
+  .tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--card); border: 1px solid #2a3f2d; display: grid; place-items: center; font-size: 20px; position: relative; z-index: 1; }
+  .tl-dot.active { background: var(--danger); border-color: var(--danger); }
+  .tl-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; margin-top: 12px; }
+  .tl-body { font-size: 15px; color: #b5c4b8; line-height: 1.6; }
+  .tl-quote { font-style: italic; color: var(--chalk); border-left: 2px solid var(--danger); padding-left: 16px; margin-top: 12px; font-size: 14px; }
+
+  #act4 { padding: 120px 80px; background: #070f09; }
+  .solution-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+  .solution-cell { background: var(--card); padding: 36px 28px; position: relative; overflow: hidden; }
+  .solution-cell::after { content: attr(data-step); position: absolute; bottom: -10px; right: 16px; font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; }
+  .sol-icon { font-size: 28px; margin-bottom: 20px; }
+  .sol-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); margin-bottom: 12px; }
+  .sol-body { font-size: 14px; color: #b5c4b8; line-height: 1.6; }
+
+  #cta { padding: 160px 80px; text-align: center; background: radial-gradient(ellipse at center, #1a3a20 0%, var(--pitch) 70%); }
+  .cta-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: var(--lime); text-transform: uppercase; margin-bottom: 24px; }
+  .cta-headline { font-family: 'Playfair Display', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 900; line-height: 1.1; max-width: 700px; margin: 0 auto 48px; }
+  .cta-btn { display: inline-block; background: var(--lime); color: var(--pitch); font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; padding: 18px 48px; text-decoration: none; font-weight: 500; transition: transform 0.2s, box-shadow 0.2s; }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200, 241, 53, 0.25); }
+
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(6px); } }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; } .nav-links { display: none; }
+    #act1, #act3 { grid-template-columns: 1fr; padding: 80px 24px; }
+    #act2, #act4, #cta { padding: 80px 24px; }
+    .evidence-row { grid-template-columns: 1fr; }
+    .solution-grid { grid-template-columns: 1fr 1fr; }
+    #hero { padding: 100px 24px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-logo">ReCleat</div>
+  <div class="nav-links">
+    <a href="#act1">The Player</a>
+    <a href="#act2">The Problem</a>
+    <a href="#act3">The Moment</a>
+    <a href="#act4">The System</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="pitch-lines"></div>
+  <div>
+    <p class="hero-tag">MPD²-445 · Northwestern · Product Research</p>
+    <h1 class="hero-headline">Every player has<br><em>one bad game</em><br>before it breaks them.</h1>
+    <p class="hero-body">We interviewed players, surveyed 55 more, and found the same story again and again: the gear system fails at the exact moment players need it most.</p>
+    <div class="scroll-cue">Scroll to explore<span class="scroll-arrow"></span></div>
+  </div>
+</section>
+
+<section id="act1">
+  <div class="text-side">
+    <p class="act-label reveal">Act I · Meet the Player</p>
+    <h2 class="act-headline reveal reveal-delay-1">Mikey doesn't look at price anymore.<br>He looks at stability.</h2>
+    <div class="act-body reveal reveal-delay-2">
+      <p>He's 38, a human interface designer, a new dad. He plays recreational soccer a few times a week — the kind of games where no one's getting paid but everyone's fully committed.</p>
+      <p>He's also the kind of player who owns three pairs of cleats. Not because he's obsessive. Because the gear system gave him no other choice.</p>
+      <p>Mikey tore his plantar fascia mid-game. Wrong cleats, wrong surface. It wasn't a freak accident. It was the inevitable outcome of a system that was never designed to protect him.</p>
+    </div>
+  </div>
+  <div class="persona-card reveal reveal-delay-2">
+    <img src="Mikey Profile Pic.png" alt="Mikey" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--lime);margin-bottom:20px;display:block">
+    <p class="persona-name">Mikey</p>
+    <p class="persona-sub">38 · Designer · New Dad · 3-pair household</p>
+    <div class="persona-quote">"I tore my plantar fascia mid-game. Now I don't look at price — I look at stability."</div>
+    <div class="persona-stats">
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Pairs of cleats owned</div></div>
+      <div class="stat-item"><div class="stat-num">2×</div><div class="stat-label">Same Nike failure, repeated</div></div>
+      <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Brand loyalty remaining</div></div>
+      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Custom insoles across all pairs</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="act2">
+  <div class="inner">
+    <div class="section-header">
+      <p class="act-label reveal">Act II · The Scale of the Problem</p>
+      <div class="pull-stat reveal reveal-delay-1">53%</div>
+      <p class="pull-context reveal reveal-delay-2">of players surveyed have played in the wrong footwear — and did it anyway, because missing the game felt worse than the risk of injury.</p>
+    </div>
+    <div class="evidence-row">
+      <div class="evidence-cell danger reveal">
+        <div class="ev-num red">73%</div>
+        <div class="ev-desc">rank injury prevention as their #1 priority — above cost, above performance. And yet 53% play in gear that threatens exactly that.</div>
+      </div>
+      <div class="evidence-cell reveal reveal-delay-1">
+        <div class="ev-num">56%</div>
+        <div class="ev-desc">say physical danger is their top frustration — not cost, not performance drop. The market is solving around the wrong problem entirely.</div>
+      </div>
+      <div class="evidence-cell reveal reveal-delay-2">
+        <div class="ev-num">$400+</div>
+        <div class="ev-desc">spent annually on full cleat replacements. Not upgrades. Replacements. The current model monetizes failure, not loyalty.</div>
+      </div>
+    </div>
+    <div class="author-break reveal">
+      <strong>A note on method.</strong> These numbers come from 55 active players across recreational and competitive levels, plus three in-depth interviews with players who had experienced real, documented injuries. We weren't looking for edge cases. We kept finding the same story.
+    </div>
+  </div>
+</section>
+
+<section id="act3">
+  <div>
+    <p class="act-label reveal">Act III · The Failure Sequence</p>
+    <h2 class="act-headline reveal reveal-delay-1">The system doesn't fail slowly.<br>It fails at the worst possible moment.</h2>
+    <p class="reveal reveal-delay-2" style="color:#b5c4b8; margin-top:20px; font-size:16px; max-width:480px;">Three players. Three injuries. Three independent paths to the same conclusion: the current gear system isn't just inconvenient. It's structurally dangerous.</p>
+  </div>
+  <div class="timeline reveal reveal-delay-1">
+    <div class="timeline-item">
+      <div class="tl-dot">⚡</div>
+      <div><p class="tl-title">Mikey · Plantar Fascia Tear</p><p class="tl-body">Wore AG cleats on a surface that required turf. Didn't know until mid-game. Played anyway.</p><p class="tl-quote">"Cost of not playing felt greater than the injury risk."</p></div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-dot active">🩻</div>
+      <div><p class="tl-title">Dera · Pelvic Stress Fracture</p><p class="tl-body">Repeated surface mismatch over multiple seasons. $2K in MRI costs. Still plays.</p><p class="tl-quote">"There was no system to tell me I was accumulating damage."</p></div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-dot">💥</div>
+      <div><p class="tl-title">Bolu · Stud-Through-Boot Failure</p><p class="tl-body">Hardware failure during play. No backup. No recourse. Just risk absorbed in real time.</p><p class="tl-quote">"When the gear fails, you have no options."</p></div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-dot">📰</div>
+      <div>
+        <p class="tl-title">David E. · Nike Tiempo Sole Detachment</p>
+        <img src="David busted cleats.jpeg" alt="David's detached sole" style="width:100%;max-height:200px;object-fit:cover;border-radius:4px;margin:10px 0;border:1px solid #2a3f2d">
+        <p class="tl-body">Sole detached 90% mid-game on turf. No backup footwear. No safe way to finish.</p>
+        <p class="tl-quote">"I had to choose between walking off or finishing in a broken shoe."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="act4">
+  <div class="inner">
+    <p class="act-label reveal">Act IV · The System</p>
+    <h2 class="reveal reveal-delay-1" style="font-family:'Playfair Display',serif; font-size:clamp(36px,4vw,56px); font-weight:700; line-height:1.15; max-width:640px; margin-bottom:0;">ReCleat doesn't sell cleats.<br>It closes every gap the market left open.</h2>
+    <div class="solution-grid">
+      <div class="solution-cell reveal" data-step="01"><div class="sol-icon">🔒</div><p class="sol-title">Modular Lock System</p><p class="sol-body">Visual + tactile confirmation on every swap. Green indicator. Audible click. No ambiguity about whether the outsole is secure.</p></div>
+      <div class="solution-cell reveal reveal-delay-1" data-step="02"><div class="sol-icon">⚡</div><p class="sol-title">&lt;10-Second Swap</p><p class="sol-body">Sideline-ready. No tools, no rehearsal, no pre-game decision anxiety. The right outsole for the surface, in under ten seconds.</p></div>
+      <div class="solution-cell reveal reveal-delay-2" data-step="03"><div class="sol-icon">💰</div><p class="sol-title">$49 Outsole vs $190 Replacement</p><p class="sol-body">The platform model inverts the economics. Players pay for adaptability, not for the failure of a system that forces full replacements.</p></div>
+      <div class="solution-cell reveal reveal-delay-3" data-step="04"><div class="sol-icon">📊</div><p class="sol-title">Wear Intelligence</p><p class="sol-body">80-hour threshold tracking triggers a reorder prompt. The system tells you when to replace before the outsole tells you in a worse way.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <p class="cta-label reveal">ReCleat · The Full Case</p>
+  <h2 class="cta-headline reveal reveal-delay-1">One system.<br>Any surface.<br>No pre-game uncertainty.</h2>
+  <a href="https://recleat-portfolio.tiiny.site" class="cta-btn reveal reveal-delay-2" target="_blank">View Full Portfolio →</a>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const max = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress').style.width = (scrolled / max * 100) + '%';
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

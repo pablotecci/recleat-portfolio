@@ -391,6 +391,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
     <span class="">MPD²-445 · NORTHWESTERN · DANIEL DIAKU</span>
   </div>
   <div class="tab-bar">
+    <button class="tab-btn" onclick="window.open('recleat_pudding_sample.html','_blank')" style="color:#4a8a4a;border-bottom-color:#4a8a4a">📖 Story</button>
     <button class="tab-btn" onclick="showTab('persona',this)">👤 Persona</button>
     <button class="tab-btn" onclick="showTab('affinity',this)">🗂️ Affinity Map</button>
     <button class="tab-btn" onclick="showTab('evidence',this)">📊 Evidence</button>
@@ -408,7 +409,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 <div id="panel-persona" class="panel">
   <div class="container">
 <div class="persona-hero">
-  <div class="persona-avatar">👤</div>
+  <div class="persona-avatar"><img src="Mikey Profile Pic.png" alt="Mikey"></div>
   <div style="flex:1">
     <div class="section-tag">Primary Persona · Lead User</div>
     <h1 style="font-size:clamp(32px,6vw,52px);font-weight:normal;line-height:1;color:var(--offwhite);margin:4px 0 4px" class="">Mikey</h1>
@@ -1507,9 +1508,9 @@ const tensions = [
   ["🏥","Custom Move insoles in ALL cleats for arch support"],
 ];
 const cleats = [
-  { label:"AG / FG", surface:"Natural Grass",         color:"#E8323A", name:"Grass / Cyclone AG",  note:"Center stud broke twice — considering Adidas" },
-  { label:"IC",      surface:"Hardwood / Carpet Turf", color:"#555",   name:"Indoor Flat",          note:"Used for work courts & carpet-like indoor surfaces" },
-  { label:"TF",      surface:"Artificial Turf",         color:"#1A6BCC",name:"Turf / Stability",     note:"Primary cleat post-plantar fascia — flat, grounded, stable" },
+  { label:"AG / FG", surface:"Natural Grass",         color:"#E8323A", name:"Grass / Cyclone AG",  note:"Center stud broke twice — considering Adidas",                            img:"Mikey cleat 1 - grass_Nike_cyclones.png" },
+  { label:"IC",      surface:"Hardwood / Carpet Turf", color:"#888",   name:"Indoor Flat",          note:"Used for work courts & carpet-like indoor surfaces",                     img:"Mikey cleat 2 - solid_Nike.png" },
+  { label:"TF",      surface:"Artificial Turf",         color:"#1A6BCC",name:"Turf / Stability",     note:"Primary cleat post-plantar fascia — flat, grounded, stable",            img:"Mikey cleat 3 - turf_NIke.png" },
 ];
 const quotes = [
   "I tore my plantar fascia mid-game. Now I don't look at price — I look at stability.",
@@ -1724,7 +1725,8 @@ function renderCleatTabs() {
   if(detail) {
     detail.style.borderLeftColor = c.color;
     detail.innerHTML = `
-      <div style="font-size:16px;color:${c.color};margin-bottom:5px">${c.name}</div>
+      <img src="${c.img}" alt="${c.name}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;display:block">
+      <div style="font-size:14px;color:${c.color};font-weight:bold;margin-bottom:4px">${c.name}</div>
       <div style="font-size:12px;color:#ccc;line-height:1.6">${c.note}</div>`;
   }
 }
