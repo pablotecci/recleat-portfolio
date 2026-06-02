@@ -512,22 +512,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 </div>
 <div class="dark-card" style="margin-bottom:22px">
   <div class="label-sm">Mikey's Actual Cleats</div>
-  <div class="cleat-tabs" id="cleat-tabs">
-    <button class="cleat-tab active" onclick="setCleat(0)" style="border-color:#E8323A;background:#E8323A22;">
-      <div style="font-size:9px;color:#E8323A;margin-bottom:2px">AG / FG</div>
-      Natural Grass
-    </button>
-    <button class="cleat-tab" onclick="setCleat(1)" style="">
-      <div style="font-size:9px;color:#555;margin-bottom:2px">IC</div>
-      Hardwood / Carpet Turf
-    </button>
-    <button class="cleat-tab" onclick="setCleat(2)" style="">
-      <div style="font-size:9px;color:#1A6BCC;margin-bottom:2px">TF</div>
-      Artificial Turf
-    </button></div>
-  <div id="cleat-detail" style="background: rgba(255, 255, 255, 0.04); border-radius: 4px; padding: 14px; border-left-width: ; border-left-style: ; border-left-color: rgb(232, 50, 58);">
-      <div style="font-size:16px;color:#E8323A;margin-bottom:5px">Grass / Cyclone AG</div>
-      <div style="font-size:12px;color:#ccc;line-height:1.6">Center stud broke twice — considering Adidas</div></div>
+  <div id="cleat-tabs"></div>
 </div>
 <div class="dark-card" style="margin-bottom:22px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -1158,9 +1143,9 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
       <div class="pb-circle" style="width:80px;height:80px;bottom:-20px;left:42%"></div>
       <div class="pitch-banner-inner">
         <div class="pitch-banner-text">
-          <span class="pb-tag">Agile Roadmap · 6 Sprints · 186 Points</span>
+          <span class="pb-tag">Agile Roadmap · 6 Sprints · Jun 16 – Sep 5, 2025</span>
           <h1>Three sprints separate concept from a shippable MVP</h1>
-          <p>4 kill-criteria gates at Sprint 3 · 2-week cadence throughout.</p>
+          <p>4 kill-criteria gates at Sprint 3 · 2-week cadence · Black Footwear Forum target: Sep 10–13</p>
         </div>
         <div class="pitch-banner-illus">
           <!-- Sprinting player -->
@@ -1217,7 +1202,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
     <div class="scrum-grid">
       <!-- Sprint 1 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:var(--purple)"><span>SPRINT 1: Research</span><span>24pts</span></div>
+        <div class="sprint-head" style="background:var(--purple)"><span>SPRINT 1: Research &amp; Validation</span><span>Jun 16–27</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Recruit 2-3 additional interview participants</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Conduct &amp; transcribe additional interviews</div>
@@ -1231,7 +1216,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
       <!-- Sprint 2 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:var(--blue)"><span>SPRINT 2: Prototype</span><span>27pts</span></div>
+        <div class="sprint-head" style="background:var(--blue)"><span>SPRINT 2: Prototype Development</span><span>Jun 30 – Jul 11</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:var(--blue)">STORY</span>Simple switching process — no tools (RC-107)</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:var(--blue)">STORY</span>Clear lock confirmation — click + visual (RC-120)</div>
@@ -1245,7 +1230,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
       <!-- Sprint 3 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:var(--red)"><span>SPRINT 3: Validation</span><span>17pts</span></div>
+        <div class="sprint-head" style="background:var(--red)"><span>SPRINT 3: Usability Testing &amp; Kill Criteria</span><span>Jul 14–25</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Conduct timed swap tests (10 players)</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:var(--red)">KILL</span>If swap &gt;10 seconds → STOP</div>
@@ -1259,7 +1244,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
       <!-- Sprint 4 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:var(--green)"><span>SPRINT 4: Digital MVP</span><span>47pts</span></div>
+        <div class="sprint-head" style="background:var(--green)"><span>SPRINT 4: Digital MVP – Core Screens</span><span>Jul 28 – Aug 8</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>React PWA setup (Vite)</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:var(--blue)">STORY</span>Traction recommendation per surface (RC-101)</div>
@@ -1272,7 +1257,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
       <!-- Sprint 5 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:var(--gold)"><span>SPRINT 5: Retention</span><span>36pts</span></div>
+        <div class="sprint-head" style="background:var(--gold)"><span>SPRINT 5: Checkout, Post-Purchase &amp; Retention</span><span>Aug 11–22</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Build Screen 5 Checkout (Bundle Calc)</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:var(--blue)">STORY</span>Replace components, not shoes (RC-115)</div>
@@ -1285,7 +1270,7 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
 
       <!-- Sprint 6 -->
       <div class="sprint-card">
-        <div class="sprint-head" style="background:#888"><span>SPRINT 6: Integration</span><span>35pts</span></div>
+        <div class="sprint-head" style="background:#555"><span>SPRINT 6: Integration, QA &amp; BFF Launch 🚀</span><span>Aug 25 – Sep 5</span></div>
         <div class="sprint-body">
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>End-to-end flow testing</div>
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Cross-browser iOS/Android Safari</div>
@@ -1294,6 +1279,19 @@ padding: 10px 6px; text-align: center; cursor: pointer; transition: all .2s;
           <div style="font-size:12px; margin-bottom:4px"><span class="badge" style="background:#888">TASK</span>Deploy to production</div>
         </div>
       </div>
+    </div>
+
+    <div style="margin-top:24px; text-align:center;">
+      <a href="https://recleat.atlassian.net/jira/software/projects/RC/list" target="_blank"
+         style="display:inline-flex; align-items:center; gap:8px; background:#0052CC; color:#fff;
+                padding:10px 20px; border-radius:6px; font-family:var(--mono); font-size:12px;
+                text-decoration:none; letter-spacing:0.04em;">
+        <svg width="16" height="16" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.9 1.2L8.5 8.6l3.9 3.9 3.5-3.5 7.8 7.8-3.5 3.5 3.9 3.9 7.4-7.4a2 2 0 000-2.8L16.9 1.2a.7.7 0 00-1 0z"/>
+          <path d="M16.1 20.6l-3.5 3.5-7.8-7.8 3.5-3.5-3.9-3.9L.9 16.4a2 2 0 000 2.8l13.1 13.1a.7.7 0 001 0l7.4-7.4-6.3-4.3z" opacity=".5"/>
+        </svg>
+        View Live Jira Board → recleat.atlassian.net
+      </a>
     </div>
   </div>
 </div>
@@ -1719,21 +1717,19 @@ function buildPersona() {
 function renderCleatTabs() {
   const tabs = document.getElementById('cleat-tabs');
   if(!tabs) return;
-  tabs.innerHTML = cleats.map((c,i) => `
-    <button class="cleat-tab${i===activeCleat?' active':''}" onclick="setCleat(${i})"
-      style="${i===activeCleat?`border-color:${c.color};background:${c.color}22;`:''}">
-      <div style="font-size:9px;color:${c.color};margin-bottom:2px">${c.label}</div>
-      ${c.surface}
-    </button>`).join('');
-  const c = cleats[activeCleat];
-  const detail = document.getElementById('cleat-detail');
-  if(detail) {
-    detail.style.borderLeftColor = c.color;
-    detail.innerHTML = `
-      <img src="${c.img}" alt="${c.name}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;display:block">
-      <div style="font-size:14px;color:${c.color};font-weight:bold;margin-bottom:4px">${c.name}</div>
-      <div style="font-size:12px;color:#ccc;line-height:1.6">${c.note}</div>`;
-  }
+  tabs.innerHTML = `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">` +
+    cleats.map((c,i) => `
+      <div style="display:flex;flex-direction:column;align-items:stretch;">
+        <div style="border:1px solid ${c.color};background:${c.color}22;border-radius:6px;padding:10px 8px;text-align:center;margin-bottom:8px;">
+          <div style="font-size:9px;color:${c.color};margin-bottom:3px;font-family:var(--mono);letter-spacing:1px">${c.label}</div>
+          <div style="font-size:11px;color:#ddd;line-height:1.3">${c.surface}</div>
+        </div>
+        <img src="${c.img}" alt="${c.name}"
+          style="width:100%;height:auto;border-radius:6px;display:block;object-fit:contain;background:#111;border:1px solid rgba(255,255,255,.06);">
+        <div style="font-size:12px;color:${c.color};font-weight:bold;margin-top:8px;text-align:center;">${c.name}</div>
+        <div style="font-size:10px;color:#999;text-align:center;margin-top:3px;line-height:1.4">${c.note}</div>
+      </div>`).join('') +
+    `</div>`;
 }
 
 function buildAffinity() {
